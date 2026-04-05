@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MD2WeChat · Markdown 转公众号</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" id="hljs-css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+</head>
+<body style="display:flex;flex-direction:column;height:100vh;">
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <div class="brand">
+    <div class="brand-icon">M↓</div>
+    <div class="brand-name">MD2<em>WeChat</em></div>
+  </div>
+  <div class="sep"></div>
+  <span class="label">主题：</span>
+  <div class="theme-pills" id="theme-pills"></div>
+  <div class="toolbar-right">
+    <button class="btn-ghost" id="code-theme-btn">💡 浅色代码</button>
+    <button class="btn-ghost" id="custom-theme-btn">🎨 自定义</button>
+    <button class="btn-ghost" id="source-btn">查看 HTML</button>
+    <div class="sep"></div>
+    <button class="btn-copy" id="copy-btn">
+      <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"/></svg>
+      复制到公众号
+    </button>
+  </div>
+</div>
+
+<!-- Editor Toolbar -->
+<div class="editor-toolbar" id="editor-toolbar"></div>
+
+<!-- Workspace -->
+<div class="workspace">
+  <div class="pane pane-editor" id="editor-pane">
+    <div class="pane-head">
+      <span class="pane-title">Markdown 编辑器</span>
+      <span class="pane-badge">MD</span>
+      <span class="meta" id="char-count">0 字符</span>
+    </div>
+    <textarea id="editor" spellcheck="false" placeholder="在这里输入 Markdown..."></textarea>
+  </div>
+  <div class="resizer" id="resizer"></div>
+  <div class="pane" id="preview-pane">
+    <div class="pane-head">
+      <span class="pane-title">公众号预览</span>
+      <span class="pane-badge">WeChat</span>
+      <span class="meta" style="color:var(--accent)">← 粘贴前先复制</span>
+    </div>
+    <div class="preview-scroll">
+      <div class="preview-paper">
+        <div id="preview"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="modal-bg">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title" id="modal-title"></span>
+      <button class="modal-close" id="modal-close">×</button>
+    </div>
+    <div id="modal-body"></div>
+    <div class="modal-foot" id="modal-foot"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<!-- Custom Theme Panel -->
+<div id="custom-theme-panel" class="custom-theme-panel">
+  <div class="ctp-header">
+    <span>自定义主题</span>
+    <button class="ctp-close" id="ctp-close">×</button>
+  </div>
+  <div id="ctp-fields" class="ctp-fields"></div>
+  <div class="ctp-actions">
+    <button class="btn-ghost" id="ctp-reset">重置为默认</button>
+    <button class="btn-copy" id="ctp-save">保存主题</button>
+  </div>
+</div>
+
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

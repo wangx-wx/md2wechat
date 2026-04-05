@@ -1,0 +1,26 @@
+{
+  "name": "md2wechat",
+  "version": "1.0.0",
+  "description": "Markdown 转微信公众号排版工具",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@antv/infographic": "^0.2.16",
+    "highlight.js": "^11.11.1",
+    "katex": "^0.16.44",
+    "marked": "^17.0.5",
+    "mermaid": "^11.14.0"
+  },
+  "devDependencies": {
+    "@types/katex": "^0.16.8",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3"
+  }
+}
