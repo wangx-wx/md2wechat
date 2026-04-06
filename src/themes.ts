@@ -17,7 +17,24 @@ export interface Theme {
 
 const THEME_STORAGE = 'md2wechat_theme';
 const CUSTOM_THEME_STORAGE = 'md2wechat_custom_theme';
-const CODE_THEME_STORAGE = 'md2wechat_code_theme';
+
+export type CodeThemeId = 'github' | 'monokai';
+
+interface CodeThemeConfig {
+  buttonLabel: string;
+  hljsHref: string;
+}
+
+const CODE_THEMES: Record<CodeThemeId, CodeThemeConfig> = {
+  github: {
+    buttonLabel: '💡 浅色代码',
+    hljsHref: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css',
+  },
+  monokai: {
+    buttonLabel: '🌙 深色代码',
+    hljsHref: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css',
+  },
+};
 
 export const THEMES: Record<string, Theme> = {
   default: { id: 'default', name: '默认蓝', dot: '#1a6ed8',
@@ -67,13 +84,13 @@ const CUSTOM_THEME_FIELDS: { key: keyof Theme; label: string }[] = [
 ];
 
 let currentTheme = 'default';
-let currentCodeTheme = 'github';
+let currentCodeTheme: CodeThemeId = 'github';
 
 export function getCurrentTheme(): Theme {
   return THEMES[currentTheme];
 }
 
-export function getCurrentCodeTheme(): string {
+export function getCurrentCodeTheme(): CodeThemeId {
   return currentCodeTheme;
 }
 
@@ -128,30 +145,19 @@ export function initThemes() {
 
 export function initCodeTheme() {
   const btn = document.getElementById('code-theme-btn')!;
-  const savedCode = localStorage.getItem(CODE_THEME_STORAGE);
-  if (savedCode) {
-    currentCodeTheme = savedCode;
-    updateCodeThemeUI(btn);
-  }
+  updateCodeThemeUI(btn);
 
   btn.addEventListener('click', () => {
     currentCodeTheme = currentCodeTheme === 'github' ? 'monokai' : 'github';
     updateCodeThemeUI(btn);
     applyTheme(currentTheme);
-    localStorage.setItem(CODE_THEME_STORAGE, currentCodeTheme);
   });
 }
 
 function updateCodeThemeUI(btn: HTMLElement) {
-  if (currentCodeTheme === 'monokai') {
-    btn.textContent = '🌙 深色代码';
-    document.getElementById('hljs-css')!.setAttribute('href',
-      'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css');
-  } else {
-    btn.textContent = '💡 浅色代码';
-    document.getElementById('hljs-css')!.setAttribute('href',
-      'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css');
-  }
+  const theme = CODE_THEMES[currentCodeTheme];
+  btn.textContent = theme.buttonLabel;
+  document.getElementById('hljs-css')!.setAttribute('href', theme.hljsHref);
 }
 
 function initCustomThemePanel() {

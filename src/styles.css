@@ -218,6 +218,10 @@ html, body { height: 100%; overflow: hidden; background: var(--shell-bg);
   background: transparent; color: var(--t-code-def); padding: 0;
   font-size: 13px; line-height: 1.65; border-radius: 0;
 }
+#preview pre code.hljs {
+  background: transparent !important;
+  padding: 0 !important;
+}
 .code-wrap { position: relative; }
 .code-lang-badge {
   position: absolute; top: 9px; right: 12px;
